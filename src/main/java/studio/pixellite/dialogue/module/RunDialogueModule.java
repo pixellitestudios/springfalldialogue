@@ -51,7 +51,7 @@ public class RunDialogueModule implements TerminableModule {
     List<String> message = dialogue.getRandomMessage();
 
     Players.msg(player, " ");
-    Players.msg(player, "  &f&l" + npcName);
+    Players.msg(player, "  &f&l" + dialogue.getName());
     for(String string : message) {
       Players.msg(player, "  &7" + string);
     }
