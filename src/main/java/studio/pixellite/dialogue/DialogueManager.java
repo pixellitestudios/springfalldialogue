@@ -18,15 +18,11 @@ public class DialogueManager {
 
   public DialogueManager(DialoguePlugin plugin) {
     this.plugin = plugin;
+    loader.loadDialogue();
   }
 
   protected DialoguePlugin getPlugin() {
     return plugin;
-  }
-
-  /** Initializes this manager by loading all of the dialogue. */
-  public void init() {
-    loader.loadDialogue();
   }
 
   /**
