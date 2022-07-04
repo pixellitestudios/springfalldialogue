@@ -10,19 +10,24 @@ public class DialogueManager {
   /** A map containing all the loaded dialogue pieces. */
   private final Map<String, Dialogue> dialogue = new ConcurrentHashMap<>();
 
-  /** The loader for loading dialogue from the configuration. */
-  private final DialogueLoader loader = new DialogueLoader(this);
-
   /** The primary plugin instance. */
   private final DialoguePlugin plugin;
 
+  /** The loader for loading dialogue from the configuration. */
+  private final DialogueLoader loader;
+
   public DialogueManager(DialoguePlugin plugin) {
     this.plugin = plugin;
-    loader.loadDialogue();
+    this.loader = new DialogueLoader(this);
   }
 
   protected DialoguePlugin getPlugin() {
     return plugin;
+  }
+
+  /** Initializes this manager by loading all of the dialogue. */
+  public void init() {
+    loader.loadDialogue();
   }
 
   /**

@@ -9,7 +9,10 @@ public class DialoguePlugin extends ExtendedJavaPlugin {
   @Override
   protected void enable() {
     saveDefaultConfig();
+
     dialogueManager = new DialogueManager(this);
+    dialogueManager.init();
+
     bindModule(new RunDialogueModule(this));
   }
 
