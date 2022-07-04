@@ -24,7 +24,7 @@ public class RunDialogueModule implements TerminableModule {
   public void setup(@NotNull TerminableConsumer consumer) {
     Commands.create()
             .assertConsole()
-            .assertUsage("<player> <dialogueid> <npcname>")
+            .assertUsage("<player> <dialogueid>")
             .handler(c -> {
               Player target = Bukkit.getPlayer(c.arg(0).parseOrFail(String.class));
               if(target == null) {
@@ -42,19 +42,20 @@ public class RunDialogueModule implements TerminableModule {
 
               // send the dialogue to the target
               runDialogue(target,
-                      dialogue,
-                      String.join(" ", c.args().subList(2, c.args().size())));
+                      dialogue);
             })
             .registerAndBind(consumer, "rundialogue");
   }
 
-  private void runDialogue(Player player, Dialogue dialogue, String npcName) {
+  private void runDialogue(Player player, Dialogue dialogue) {
     List<String> message = dialogue.getRandomMessage();
 
-    Players.msg(player, " &f&l" + npcName);
+    Players.msg(player, " ");
+    Players.msg(player, "  &f&l" + npcName);
     for(String string : message) {
-      Players.msg(player, " &7" + string);
+      Players.msg(player, "  &7" + string);
     }
+    Players.msg(player, " ");
 
     // play an interaction sound for the player
     player.playSound(player.getLocation(), Sound.ENTITY_VILLAGER_YES, 1, 1);
