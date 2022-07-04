@@ -1,0 +1,5 @@
+# A config file containing dialogue messages
+ashe:
+  id: 'ashe-1'
+  message:
+    - 'This is a test message!'

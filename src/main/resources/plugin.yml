@@ -1,0 +1,7 @@
+name: PixelliteDialogue
+author: Pixellite Studios
+version: 1.0.0
+main: studio.pixellite.dialogue.DialoguePlugin
+api-version: 1.13
+website: https://pixellite.studio
+depend: [helper]
