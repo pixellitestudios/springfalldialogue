@@ -67,7 +67,7 @@ public class RunDialogueModule implements TerminableModule {
 
     if(!dialogue.getCommand().equals("")) {
       Schedulers.sync().runLater(() -> Bukkit.dispatchCommand(plugin.getServer().getConsoleSender(),
-              command), 80);
+              command), dialogue.getCommandTickDelay());
     }
   }
 }

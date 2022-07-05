@@ -15,6 +15,7 @@ public class Dialogue {
     private final String name;
     private final ImmutableList.Builder<List<String>> messagesBuilder = ImmutableList.builder();
     private final String command;
+    private int commandTickDelay = 0;
 
     private Builder(String dialogueId, String name, String command) {
       this.dialogueId = dialogueId;
@@ -27,8 +28,13 @@ public class Dialogue {
       return this;
     }
 
+    public Builder commandTickDelay(int ticks) {
+      this.commandTickDelay = ticks;
+      return this;
+    }
+
     public Dialogue build() {
-      return new Dialogue(dialogueId, name, command, messagesBuilder.build());
+      return new Dialogue(dialogueId, name, command, commandTickDelay, messagesBuilder.build());
     }
   }
 
@@ -48,17 +54,22 @@ public class Dialogue {
   /** A command that will be executed after an NPC message is sent. */
   private final String command;
 
+  /** How many ticks should we wait before executing the command? */
+  private final int commandTickDelay;
+
   /** A random selector for selecting random {@link #messages}. */
   private final RandomSelector<List<String>> selector;
 
   private Dialogue(String dialogueId,
                    String name,
                    String command,
+                   int commandTickDelay,
                    List<List<String>> messages) {
     this.dialogueId = dialogueId;
     this.name = name;
     this.messages = messages;
     this.command = command;
+    this.commandTickDelay = commandTickDelay;
     this.selector = RandomSelector.uniform(this.messages);
   }
 
@@ -76,6 +87,10 @@ public class Dialogue {
 
   public String getCommand() {
     return command;
+  }
+
+  public int getCommandTickDelay() {
+    return commandTickDelay;
   }
 
   /**

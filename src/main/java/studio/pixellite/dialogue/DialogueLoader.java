@@ -34,8 +34,10 @@ public class DialogueLoader {
       String dialogueId = child.getNode("id").getString("def").toLowerCase();
       String dialogueName = child.getNode("name").getString("def");
       String dialogueCommand = child.getNode("command").getString("");
+      int dialogueCommandTickDelay = child.getNode("command-delay").getInt();
 
       Dialogue.Builder builder = Dialogue.builder(dialogueId, dialogueName, dialogueCommand);
+      builder.commandTickDelay(dialogueCommandTickDelay);
 
       for(ConfigurationNode message : child.getNode("messages").getChildrenMap().values()) {
         try {

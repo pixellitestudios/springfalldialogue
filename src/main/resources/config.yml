@@ -9,3 +9,5 @@ ashe:
   # This command is executed by the console, use {player} placeholder to execute a command
   # that includes a player name.
   command: 'testcommand'
+  # in ticks?
+  command-delay: 80
