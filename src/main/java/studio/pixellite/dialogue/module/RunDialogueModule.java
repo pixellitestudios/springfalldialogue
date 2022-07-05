@@ -24,6 +24,7 @@ public class RunDialogueModule implements TerminableModule {
   @Override
   public void setup(@NotNull TerminableConsumer consumer) {
     Commands.create()
+            .assertPermission("pixellite.dialogue.run")
             .assertConsole()
             .assertUsage("<player> <dialogueid>")
             .handler(c -> {
