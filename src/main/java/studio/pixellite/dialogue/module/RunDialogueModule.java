@@ -68,7 +68,7 @@ public class RunDialogueModule implements TerminableModule {
     // play an interaction sound for the player
     player.playSound(player.getLocation(), Sound.ENTITY_VILLAGER_YES, 1, 1);
 
-    // run dialogue command after 4 seconds
+    // run dialogue command after X ticks
     MetadataMap playerMetadata = Metadata.provideForPlayer(player);
     String command = dialogue.getCommand().replace("{player}", player.getName());
 
