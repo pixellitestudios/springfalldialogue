@@ -1,6 +1,7 @@
 package studio.pixellite.dialogue.module;
 
 import me.lucko.helper.Commands;
+import me.lucko.helper.Schedulers;
 import me.lucko.helper.terminable.TerminableConsumer;
 import me.lucko.helper.terminable.module.TerminableModule;
 import me.lucko.helper.utils.Players;
@@ -59,5 +60,13 @@ public class RunDialogueModule implements TerminableModule {
 
     // play an interaction sound for the player
     player.playSound(player.getLocation(), Sound.ENTITY_VILLAGER_YES, 1, 1);
+
+    // run dialogue command after 4 seconds
+    String command = dialogue.getCommand().replace("{player}", player.getName());
+
+    if(!dialogue.getCommand().equals("")) {
+      Schedulers.sync().runLater(() -> Bukkit.dispatchCommand(plugin.getServer().getConsoleSender(),
+              command), 80);
+    }
   }
 }

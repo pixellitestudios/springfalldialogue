@@ -31,8 +31,11 @@ public class DialogueLoader {
 
     // build dialogue objects
     for(ConfigurationNode child : node.getChildrenMap().values()) {
-      Dialogue.Builder builder = Dialogue.builder(child.getNode("id").getString("def").toLowerCase(),
-              child.getNode("name").getString("def"));
+      String dialogueId = child.getNode("id").getString("def").toLowerCase();
+      String dialogueName = child.getNode("name").getString("def");
+      String dialogueCommand = child.getNode("command").getString("");
+
+      Dialogue.Builder builder = Dialogue.builder(dialogueId, dialogueName, dialogueCommand);
 
       for(ConfigurationNode message : child.getNode("messages").getChildrenMap().values()) {
         try {

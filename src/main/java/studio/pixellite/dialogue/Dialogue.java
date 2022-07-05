@@ -14,10 +14,12 @@ public class Dialogue {
     private final String dialogueId;
     private final String name;
     private final ImmutableList.Builder<List<String>> messagesBuilder = ImmutableList.builder();
+    private final String command;
 
-    private Builder(String dialogueId, String name) {
+    private Builder(String dialogueId, String name, String command) {
       this.dialogueId = dialogueId;
       this.name = name;
+      this.command = command;
     }
 
     public Builder addDialogue(List<String> message) {
@@ -26,12 +28,12 @@ public class Dialogue {
     }
 
     public Dialogue build() {
-      return new Dialogue(dialogueId, name, messagesBuilder.build());
+      return new Dialogue(dialogueId, name, command, messagesBuilder.build());
     }
   }
 
-  public static Builder builder(String dialogueId, String name) {
-    return new Builder(dialogueId, name);
+  public static Builder builder(String dialogueId, String name, String command) {
+    return new Builder(dialogueId, name, command);
   }
 
   /** The name/id for this piece of dialogue. This is typically associated with the NPC. */
@@ -43,13 +45,20 @@ public class Dialogue {
   /** The messages that this dialogue can randomly send. */
   private final List<List<String>> messages;
 
+  /** A command that will be executed after an NPC message is sent. */
+  private final String command;
+
   /** A random selector for selecting random {@link #messages}. */
   private final RandomSelector<List<String>> selector;
 
-  private Dialogue(String dialogueId, String name, List<List<String>> messages) {
+  private Dialogue(String dialogueId,
+                   String name,
+                   String command,
+                   List<List<String>> messages) {
     this.dialogueId = dialogueId;
     this.name = name;
     this.messages = messages;
+    this.command = command;
     this.selector = RandomSelector.uniform(this.messages);
   }
 
@@ -63,6 +72,10 @@ public class Dialogue {
 
   public List<List<String>> getMessages() {
     return messages;
+  }
+
+  public String getCommand() {
+    return command;
   }
 
   /**
